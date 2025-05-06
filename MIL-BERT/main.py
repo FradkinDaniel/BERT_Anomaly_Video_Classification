@@ -90,7 +90,7 @@ else:
     anomaly_train_dataset = Anomaly_Loader(is_train=1,dataset=args.dataset,modality=args.modality)
     anomaly_test_dataset = Anomaly_Loader(is_train=0, dataset=args.dataset,modality=args.modality)
 
-    if args.train_mode==0:
+    if args.train_mode == 0:
         model = Learner(feature_dim=1024, modality=args.modality, BERT_Enable =False)
     else: 
         model = Learner(feature_dim=1024, modality=args.modality)
