@@ -12,6 +12,11 @@ from dataset import *
 from sklearn import metrics
 from tqdm import tqdm
 
+
+# Download latest version
+
+
+
 def divide_feature(feature, length, L2Norm, modality):
     """
     Divide a sequence feature into `length` segments, averaging over each segment,

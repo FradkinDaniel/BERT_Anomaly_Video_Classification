@@ -104,11 +104,11 @@ class Normal_Loader(Dataset):
         if self.is_train == 1:
             data_list = os.path.join(self.path, train_file)
             with open(data_list, 'r') as f:
-                self.data_list = f.readlines()
+                self.data_list = [line.strip() for line in f if line.strip()]
         else:
             data_list = os.path.join(self.path, test_file)
             with open(data_list, 'r') as f:
-                self.data_list = f.readlines()
+                self.data_list = [line.strip() for line in f if line.strip()]
             #random.shuffle(self.data_list)
             #self.data_list = self.data_list[:-10]
 
@@ -371,12 +371,11 @@ class Anomaly_Loader(Dataset):
         if self.is_train == 1:
             data_list = os.path.join(self.path, train_file)
             with open(data_list, 'r') as f:
-                self.data_list = f.readlines()
+                self.data_list = [line.strip() for line in f if line.strip()]
         else:
             data_list = os.path.join(self.path, test_file)
             with open(data_list, 'r') as f:
-                self.data_list = f.readlines()
-        #print(data_list) 
+                self.data_list = [line.strip() for line in f if line.strip()]        #print(data_list)
         #print(self.data_list) 
 
     def __len__(self):
