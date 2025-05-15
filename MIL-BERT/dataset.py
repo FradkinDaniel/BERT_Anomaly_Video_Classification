@@ -64,12 +64,12 @@ class Normal_Loader(Dataset):
 
         if dataset == 'UCF-Crime':
             if path is None:
-                self.path = './DATA/UCF-Crime/'
+                self.path = 'C:\\Users\\danielFradkin\\PycharmProjects\\BERT_Anomaly_Video_Classification\\DATA\\UCF-Crime\\splits\\'
             else:
                 self.path = path
 
-            train_file = 'train.txt'
-            test_file = 'test.txt'
+            train_file = 'train_001.txt'
+            test_file = 'test_002.txt'
         elif dataset == 'UCF-Crime-RTFM':
             if path is None:
                 self.path = './DATA/RTFM/'
@@ -334,20 +334,20 @@ class Anomaly_Loader(Dataset):
 
         if dataset == 'UCF-Crime':
             if path is None:
-                self.path = './DATA/UCF-Crime/'
+                self.path = 'C:\\Users\\danielFradkin\\PycharmProjects\\BERT_Anomaly_Video_Classification\\DATA\\UCF-Crime\\splits\\'
             else:
                 self.path = path
 
-            train_file = 'train.txt'
-            test_file = 'test.txt'
+            train_file = 'train_001.txt'
+            test_file = 'test_002.txt'
         elif dataset == 'UCF-Crime-RTFM':
             if path is None:
                 self.path = './DATA/RTFM/'
             else:
                 self.path = path
 
-            train_file = 'train.txt'
-            test_file = 'test.txt'
+            train_file = 'train_001.txt'
+            test_file = 'test_002.txt'
         elif dataset == 'ShanghaiTech':
 
             if path is None:
