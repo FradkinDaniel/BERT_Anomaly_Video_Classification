@@ -167,10 +167,12 @@ def train_joint(epoch, normal_loader, anomaly_loader, model, criterion, criterio
     train_loss = 0
 
     loadera_iter = iter(anomaly_loader)
-    for batch_idx, normal_inputs in enumerate(normal_loader):
+    for batch_idx, normal_batch in enumerate(normal_loader):
+        normal_inputs = normal_batch[0]
         if batch_idx % len(anomaly_loader) == 0:
             loadera_iter = iter(anomaly_loader)
-        anomaly_inputs = next(loadera_iter)
+        anomaly_batch  = next(loadera_iter)
+        anomaly_inputs = anomaly_batch[0]
 
         min_batch = min(anomaly_inputs.shape[0], normal_inputs.shape[0])
         anomaly_inputs = anomaly_inputs[:min_batch]
@@ -204,11 +206,15 @@ def test_abnormal(epoch, anomaly_loader, normal_loader, model, device):
         for data in anomaly_loader:
             inputs, gts, frames, _ = data
             inputs = inputs.to(device)
+            if isinstance(frames, torch.Tensor):
+                total_frames = int(frames[0].item())
+            else:
+                total_frames = int(frames[0])
             score, _ = model(inputs)
-            score = score.squeeze(0).cpu().numpy()
+            score = score.squeeze(0).detach().cpu().numpy()
 
-            score_list = np.zeros(frames[0])
-            step = np.round(np.linspace(0, frames[0] // 16, 33)).astype(int)
+            score_list = np.zeros(total_frames)
+            step = np.round(np.linspace(0, total_frames // 16, 33)).astype(int)
             for j in range(32):
                 start = step[j] * 16
                 end = min(step[j + 1] * 16, frames[0])
@@ -226,10 +232,14 @@ def test_abnormal(epoch, anomaly_loader, normal_loader, model, device):
         for data in normal_loader:
             inputs, _, frames, _ = data
             inputs = inputs.to(device)
+            if isinstance(frames, torch.Tensor):
+                total_frames = int(frames[0].item())
+            else:
+                total_frames = int(frames[0])
             score, _ = model(inputs)
-            score = score.squeeze(0).cpu().numpy()
-            score_list = np.zeros(frames[0])
-            step = np.round(np.linspace(0, frames[0] // 16, 33)).astype(int)
+            score = score.squeeze(0).detach().cpu().numpy()
+            score_list = np.zeros(total_frames)
+            step = np.round(np.linspace(0, total_frames // 16, 33)).astype(int)
             for j in range(32):
                 start = step[j] * 16
                 end = min(step[j + 1] * 16, frames[0])
